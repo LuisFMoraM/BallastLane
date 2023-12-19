@@ -1,0 +1,9 @@
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    ports:
+      - 1433:1433
+    environment:
+      SA_PASSWORD: Admin!Database
+      ACCEPT_EULA: Y
+      MSSQL_PID: Express
