@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicationApi", "Medication
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{B8D59DED-9696-4282-AC40-92221E824FDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{16151049-0811-4BBA-BFCD-13AE200AA52E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic.Test", "BusinessLogic.Test\BusinessLogic.Test.csproj", "{6F3F9CDD-9F27-4491-821E-9ACBA91DD302}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{B8D59DED-9696-4282-AC40-92221E824FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8D59DED-9696-4282-AC40-92221E824FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8D59DED-9696-4282-AC40-92221E824FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16151049-0811-4BBA-BFCD-13AE200AA52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16151049-0811-4BBA-BFCD-13AE200AA52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16151049-0811-4BBA-BFCD-13AE200AA52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16151049-0811-4BBA-BFCD-13AE200AA52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F3F9CDD-9F27-4491-821E-9ACBA91DD302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F3F9CDD-9F27-4491-821E-9ACBA91DD302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F3F9CDD-9F27-4491-821E-9ACBA91DD302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F3F9CDD-9F27-4491-821E-9ACBA91DD302}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
