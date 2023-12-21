@@ -6,7 +6,7 @@ using Moq;
 
 namespace BusinessLogic.Test
 {
-    public class MedicationServiceTest
+    public class MedicationServiceTest : IDisposable
     {
         private readonly IMapper _mapper;
         private readonly Mock<IMedicationRepository> _repositoryMock;
@@ -22,6 +22,11 @@ namespace BusinessLogic.Test
 
             _repositoryMock = new Mock<IMedicationRepository>(MockBehavior.Strict);
             _service = new MedicationService(_mapper, _repositoryMock.Object);
+        }
+
+        public void Dispose()
+        {
+            _repositoryMock.VerifyAll();
         }
 
         [Fact]
@@ -61,7 +66,7 @@ namespace BusinessLogic.Test
             _repositoryMock.Setup(r => r.GetAll()).ReturnsAsync(medList);
 
             // Act & Assert
-            var errorMsg = await Assert.ThrowsAsync<ArgumentException>(() => _service.Add(model));
+            var errorMsg = await Assert.ThrowsAsync<InvalidOperationException>(() => _service.Add(model));
             Assert.Equal(MedicationService.ExistingMedication, errorMsg.Message);
         }
 
@@ -101,7 +106,7 @@ namespace BusinessLogic.Test
             _repositoryMock.Setup(r => r.GetById(model.Id)).ReturnsAsync(null as DataAccess.Entities.Medication);
 
             // Act & Assert
-            var errorMsg = await Assert.ThrowsAsync<ArgumentException>(() => _service.Update(model.Id, model));
+            var errorMsg = await Assert.ThrowsAsync<InvalidOperationException>(() => _service.Update(model.Id, model));
             Assert.Equal(MedicationService.NonExistingMedication, errorMsg.Message);
         }
 
@@ -134,7 +139,7 @@ namespace BusinessLogic.Test
             _repositoryMock.Setup(r => r.GetById(recordToDelete.Id)).ReturnsAsync(null as DataAccess.Entities.Medication);
 
             // Act & Assert
-            var errorMsg = await Assert.ThrowsAsync<ArgumentException>(() => _service.Delete(recordToDelete.Id));
+            var errorMsg = await Assert.ThrowsAsync<InvalidOperationException>(() => _service.Delete(recordToDelete.Id));
             Assert.Equal(MedicationService.NonExistingMedication, errorMsg.Message);
         }
 

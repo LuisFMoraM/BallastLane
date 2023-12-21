@@ -11,7 +11,7 @@ using Moq;
 
 namespace MedicationApi.Test
 {
-    public class MedicationControllerTest
+    public class MedicationControllerTest : IDisposable
     {
         private readonly IMapper _mapper;
         private readonly Mock<IMedicationService> _serviceMock;
@@ -28,6 +28,11 @@ namespace MedicationApi.Test
             var _logger = new NullLogger<MedicationController>();
             _serviceMock = new Mock<IMedicationService>(MockBehavior.Strict);
             _controller = new MedicationController(_logger, _mapper, _serviceMock.Object);
+        }
+
+        public void Dispose()
+        {
+            _serviceMock.VerifyAll();
         }
 
         [Fact]
@@ -62,7 +67,7 @@ namespace MedicationApi.Test
             var medication = new MedicationDto { Id = 1, Name = "FaceAcne", Brand = "Free", Price = 10 };
             var excMsg = "The Medication exists already";
             _serviceMock.Setup(s => s.Add(It.Is<Medication>(m => m.Id == medication.Id && m.Name == medication.Name)))
-                .ThrowsAsync(new ArgumentException(excMsg));
+                .ThrowsAsync(new InvalidOperationException(excMsg));
 
             // Act
             var response = await _controller.Add(medication);
@@ -111,7 +116,7 @@ namespace MedicationApi.Test
             var medication = new MedicationDto { Id = 1, Name = "FaceAcne", Brand = "Free", Price = 10 };
             var excMsg = "The Medication does not exist";
             _serviceMock.Setup(s => s.Update(medication.Id, It.Is<Medication>(m => m.Id == medication.Id && m.Name == medication.Name)))
-                .ThrowsAsync(new ArgumentException(excMsg));
+                .ThrowsAsync(new InvalidOperationException(excMsg));
 
             // Act
             var response = await _controller.Update(medication.Id, medication);
@@ -130,7 +135,7 @@ namespace MedicationApi.Test
                 .ThrowsAsync(new Exception());
 
             // Act
-            var response = await _controller.Add(medication);
+            var response = await _controller.Update(medication.Id, medication);
 
             // Assert
             var result = Assert.IsType<StatusCodeResult>(response);
@@ -159,7 +164,7 @@ namespace MedicationApi.Test
             // Arrange
             var medicationId = 1;
             var excMsg = "The Medication does not exist";
-            _serviceMock.Setup(s => s.Delete(medicationId)).ThrowsAsync(new ArgumentException(excMsg));
+            _serviceMock.Setup(s => s.Delete(medicationId)).ThrowsAsync(new InvalidOperationException(excMsg));
 
             // Act
             var response = await _controller.Delete(medicationId);

@@ -57,7 +57,7 @@ namespace MedicationApi.Controllers
                 await _medicationService.Add(record);
                 return StatusCode(StatusCodes.Status201Created);
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 _logger.LogError(ex, errorMsg);
                 return BadRequest(ex.Message);
@@ -87,7 +87,7 @@ namespace MedicationApi.Controllers
                 await _medicationService.Update(id, record);
                 return Ok();
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 _logger.LogError(ex, errorMsg);
                 return BadRequest(ex.Message);
@@ -115,7 +115,7 @@ namespace MedicationApi.Controllers
                 await _medicationService.Delete(id);
                 return Ok();
             }
-            catch (ArgumentException ex)
+            catch (InvalidOperationException ex)
             {
                 _logger.LogError(ex, errorMsg);
                 return BadRequest(ex.Message);

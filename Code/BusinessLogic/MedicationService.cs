@@ -40,7 +40,7 @@ namespace BusinessLogic
 
             if (existingRecord != null)
             {
-                throw new ArgumentException(ExistingMedication);
+                throw new InvalidOperationException(ExistingMedication);
             }
 
             var dbObject = _mapper.Map<DataAccess.Entities.Medication>(entity);
@@ -55,7 +55,7 @@ namespace BusinessLogic
             var existingRecord = await _medicationRepository.GetById(id);
             if (existingRecord is null)
             {
-                throw new ArgumentException(NonExistingMedication);
+                throw new InvalidOperationException(NonExistingMedication);
             }
 
             entity.Id = id;
@@ -71,7 +71,7 @@ namespace BusinessLogic
             var existingRecord = await _medicationRepository.GetById(id);
             if (existingRecord is null)
             {
-                throw new ArgumentException(NonExistingMedication);
+                throw new InvalidOperationException(NonExistingMedication);
             }
 
             await _medicationRepository.Delete(existingRecord);
