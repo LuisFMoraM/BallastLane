@@ -1,3 +1,5 @@
+using BusinessLogic;
+using BusinessLogic.Interfaces;
 using DataAccess;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;
@@ -13,11 +15,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddLinqToDBContext<AppDataConnection>((provider, options) => options
                 .UseSqlServer(builder.Configuration.GetConnectionString("Default"))
                 .UseDefaultLogging(provider));
 
 RegisterRepositoryDependencies(builder.Services);
+RegisterServiceDependencies(builder.Services);
 
 var app = builder.Build();
 
@@ -43,4 +47,13 @@ void RegisterRepositoryDependencies(IServiceCollection services)
 {
     services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
     services.AddScoped<IMedicationRepository, MedicationRepository>();
+}
+
+/// <summary>
+/// Add service dependencies to the Container
+/// </summary>
+/// <param name="services">Container instance</param>
+void RegisterServiceDependencies(IServiceCollection services)
+{
+    services.AddScoped<IMedicationService, MedicationService>();
 }
