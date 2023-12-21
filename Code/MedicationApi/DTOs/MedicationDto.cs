@@ -1,17 +1,13 @@
-﻿using LinqToDB.Mapping;
-
-namespace DataAccess.Entities
+﻿namespace MedicationApi.DTOs
 {
     /// <summary>
     /// Exposes data for a Medication 
     /// </summary>
-    public class Medication
+    public class MedicationDto
     {
         /// <summary>
         /// Gets or sets the medication's identifier
         /// </summary>
-        [PrimaryKey]
-        [Identity]
         public long Id { get; set; }
 
         /// <summary>
