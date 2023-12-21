@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.Models;
+using MedicationApi.DTOs;
 
 namespace MedicationApi.MapperProfiles
 {
@@ -13,6 +14,7 @@ namespace MedicationApi.MapperProfiles
         public MedicationProfile()
         {
             CreateMap<Medication, DataAccess.Entities.Medication>().ReverseMap();
+            CreateMap<MedicationDto, Medication>().ReverseMap();
         }
     }
 }
