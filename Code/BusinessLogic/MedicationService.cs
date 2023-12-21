@@ -58,6 +58,7 @@ namespace BusinessLogic
                 throw new ArgumentException(NonExistingMedication);
             }
 
+            entity.Id = id;
             var dbObject = _mapper.Map<DataAccess.Entities.Medication>(entity);
             await _medicationRepository.Update(dbObject);
         }
