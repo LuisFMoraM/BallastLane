@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Entities
+﻿using LinqToDB.Mapping;
+
+namespace DataAccess.Entities
 {
     /// <summary>
     /// Exposes data for a Medication 
@@ -8,6 +10,8 @@
         /// <summary>
         /// Gets or sets the medication's identifier
         /// </summary>
+        [PrimaryKey]
+        [Identity]
         public long Id { get; set; }
 
         /// <summary>
