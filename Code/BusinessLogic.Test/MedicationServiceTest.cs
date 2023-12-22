@@ -52,6 +52,37 @@ namespace BusinessLogic.Test
         }
 
         [Fact]
+        public async Task MedicationService_GetById_WhenRecordDoesNotExist_ThrowsArgumentException()
+        {
+            // Arrange
+            var medicationId = 1;
+            _repositoryMock.Setup(r => r.GetById(medicationId))
+                .ReturnsAsync(null as DataAccess.Entities.Medication);
+
+            // Act & Assert
+            var errorMsg = await Assert.ThrowsAsync<ArgumentException>(() => _service.GetById(medicationId));
+            Assert.Equal(MedicationService.NonExistingMedication, errorMsg.Message);
+        }
+
+        [Fact]
+        public async Task MedicationService_GetById_WhenRecordExists_ReturnsMedicationData()
+        {
+            // Arrange
+            var medicationId = 1;
+            var dbMedication = new DataAccess.Entities.Medication { Id = 1, Name = "MedicationTest", Brand = "Care" };
+            _repositoryMock.Setup(r => r.GetById(medicationId)).ReturnsAsync(dbMedication);
+
+            // Act
+            var medication = await _service.GetById(medicationId);
+
+            // Assert
+            Assert.NotNull(medication);
+            Assert.Equal(medicationId, medication.Id);
+            Assert.Equal(dbMedication.Name, medication.Name);
+            Assert.Equal(dbMedication.Brand, medication.Brand);
+        }
+
+        [Fact]
         public async Task MedicationService_Add_WhenRecordExists_ThrowsInvalidOperationException()
         {
             // Arrange
@@ -89,11 +120,11 @@ namespace BusinessLogic.Test
             await _service.Add(model);
 
             // Assert
-            _repositoryMock.Verify(r => r.Add(It.Is<DataAccess.Entities.Medication>(m => 
-                m.Id == recordToAdd.Id && 
+            _repositoryMock.Verify(r => r.Add(It.Is<DataAccess.Entities.Medication>(m =>
+                m.Id == recordToAdd.Id &&
                 m.Name == recordToAdd.Name &&
-                m.Brand == recordToAdd.Brand && 
-                m.Price == recordToAdd.Price)), 
+                m.Brand == recordToAdd.Brand &&
+                m.Price == recordToAdd.Price)),
             Times.Once);
         }
 

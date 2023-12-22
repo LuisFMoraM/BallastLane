@@ -41,6 +41,35 @@ namespace MedicationApi.Controllers
         }
 
         /// <summary>
+        /// Gets a medication searching by Id
+        /// </summary>
+        /// <param name="id">Medication identifier</param>
+        /// <returns>Medication info</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MedicationDto))]
+        public async Task<IActionResult> Get(long id)
+        {
+            var errorMsg = $"Could not Get a Medication searching by Id. " +
+                $"Sent data => MedicationId: {id}.";
+
+            try
+            {
+                var record = await _medicationService.GetById(id);
+                return Ok(_mapper.Map<MedicationDto>(record));
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex, errorMsg);
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, errorMsg);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        /// <summary>
         /// Adds a new Medication to the system
         /// </summary>
         /// <param name="medication">Medication info</param>

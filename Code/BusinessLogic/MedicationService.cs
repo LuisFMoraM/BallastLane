@@ -31,6 +31,20 @@ namespace BusinessLogic
         }
 
         /// <summary>
+        /// Implementation of the <see cref="IMedicationService.GetById(long)"/>
+        /// </summary>
+        public async Task<Medication> GetById(long id)
+        {
+            var medication = await _medicationRepository.GetById(id);
+            if (medication is null)
+            {
+                throw new ArgumentException(NonExistingMedication);
+            }
+
+            return _mapper.Map<Medication>(medication);
+        }
+
+        /// <summary>
         /// Implementation of the <see cref="IMedicationService.Add(Medication)"/>
         /// </summary>
         public async Task Add(Medication entity)
