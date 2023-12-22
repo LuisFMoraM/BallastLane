@@ -2,6 +2,7 @@
 using BusinessLogic.Interfaces;
 using BusinessLogic.Models;
 using MedicationApi.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -10,6 +11,7 @@ namespace MedicationApi.Controllers
     /// <summary>
     /// Define Endpoints related to Medications
     /// </summary>
+    [Authorize]
     [ApiController]
     [Route("api/medications")]
     public class MedicationController : ControllerBase
@@ -32,6 +34,7 @@ namespace MedicationApi.Controllers
         /// Gets all the existing Medications from the system
         /// </summary>
         /// <returns>Medication List</returns>
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MedicationDto))]
         public async Task<IActionResult> GetAll()
@@ -45,6 +48,7 @@ namespace MedicationApi.Controllers
         /// </summary>
         /// <param name="id">Medication identifier</param>
         /// <returns>Medication info</returns>
+        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MedicationDto))]
         public async Task<IActionResult> Get(long id)
