@@ -52,7 +52,7 @@ namespace BusinessLogic.Test
         }
 
         [Fact]
-        public async Task MedicationService_Add_WhenRecordExists_ThrowsArgumentException()
+        public async Task MedicationService_Add_WhenRecordExists_ThrowsInvalidOperationException()
         {
             // Arrange
             var medList = new List<DataAccess.Entities.Medication>
@@ -98,7 +98,7 @@ namespace BusinessLogic.Test
         }
 
         [Fact]
-        public async Task MedicationService_Update_WhenRecordDoesNotExist_ThrowsArgumentException()
+        public async Task MedicationService_Update_WhenRecordDoesNotExist_ThrowsInvalidOperationException()
         {
             // Arrange
             var recordToUpdate = new DataAccess.Entities.Medication { Id = 3, Name = "LegCare", Brand = "Care", Price = 15 };
@@ -132,7 +132,7 @@ namespace BusinessLogic.Test
         }
 
         [Fact]
-        public async Task MedicationService_Delete_WhenRecordDoesNotExist_ThrowsArgumentException()
+        public async Task MedicationService_Delete_WhenRecordDoesNotExist_ThrowsInvalidOperationException()
         {
             // Arrange
             var recordToDelete = new DataAccess.Entities.Medication { Id = 4, Name = "ArmCare", Brand = "Care", Price = 8 };
