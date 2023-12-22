@@ -21,6 +21,11 @@
         public string Email { get; set; }
 
         /// <summary>
+        /// Gets or sets the user's password
+        /// </summary>
+        public string Password { get; set; }
+
+        /// <summary>
         /// Gets or sets the user's phone
         /// </summary>
         public string Phone { get; set; }

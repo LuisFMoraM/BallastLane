@@ -9,7 +9,7 @@ namespace BusinessLogic
     {
         public const string ExistingUser = "There is already a User with the same Email";
         public const string NonExistingUser = "This User does not exist - Create it if needed!";
-        public const string InvalidCredentials = "Email or Password are incorrect. Try again!";
+        public const string InvalidCredentials = "Email or Password are invalid. Try again!";
 
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
@@ -53,6 +53,7 @@ namespace BusinessLogic
                 throw new ArgumentException(InvalidCredentials);
             }
 
+            dbUser.Password = string.Empty;
             return _mapper.Map<User>(dbUser);
         }
     }

@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\MedicationApi\MedicationApi.csproj" />
+    <ProjectReference Include="..\UserApi\UserApi.csproj" />
   </ItemGroup>
 
 </Project>
