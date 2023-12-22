@@ -34,6 +34,7 @@ namespace MedicationApi.Controllers
         /// Gets all the existing Medications from the system
         /// </summary>
         /// <returns>Medication List</returns>
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MedicationDto))]
         public async Task<IActionResult> GetAll()
@@ -47,6 +48,7 @@ namespace MedicationApi.Controllers
         /// </summary>
         /// <param name="id">Medication identifier</param>
         /// <returns>Medication info</returns>
+        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MedicationDto))]
         public async Task<IActionResult> Get(long id)
