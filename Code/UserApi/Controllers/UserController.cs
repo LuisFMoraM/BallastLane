@@ -64,6 +64,7 @@ namespace UserApi.Controllers
         /// <summary>
         /// Allows the user to log in to the system
         /// </summary>
+        /// <param name="email">User's email</param>
         /// <param name="loginInfo">Information to Log in</param>
         [HttpPost("{email}/login")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]

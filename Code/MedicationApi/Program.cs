@@ -9,6 +9,8 @@ using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +20,32 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "PrescriberPoint -> Proof of Concept (PoC)",
+        Version = "v1",
+        Description = "The main goals of the PoC are centered around the concepts that:<br>" +
+        " <ul>" +
+            "<li>A Medication list is exposed to be consumed by anyone</li>" +
+            "<li>A Medication can be reviewed by anyone searching by its Id</li>" +
+            "<li>A registered/logged-in user can:</li>" +
+                "<ul>" +
+                    "<li>Create a Medication</li>" +
+                    "<li>Update a Medication</li>" +
+                    "<li>Delete a Medication</li>" +
+                "</ul>" +
+        "</ul>"
+    });
+
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddLinqToDBContext<AppDataConnection>((provider, options) => options
                 .UseSqlServer(builder.Configuration.GetConnectionString("Default"))
@@ -50,7 +77,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PrescriberPoint v1"));
 }
 
 app.UseAuthentication();
