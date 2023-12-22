@@ -22,6 +22,7 @@ namespace UserApi.DTOs
         /// Gets or sets the user's email
         /// </summary>
         [Required]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
 
         /// <summary>
