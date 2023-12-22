@@ -14,6 +14,12 @@ namespace BusinessLogic.Interfaces
         Task<List<Medication>> GetAll();
 
         /// <summary>
+        /// Gets a medication searching by Id
+        /// </summary>
+        /// <returns>Medication info</returns>
+        Task<Medication> GetById(long id);
+
+        /// <summary>
         /// Adds a Medication to the system
         /// </summary>
         /// <param name="entity">Medication info</param>

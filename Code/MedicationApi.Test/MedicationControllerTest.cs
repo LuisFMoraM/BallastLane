@@ -36,7 +36,7 @@ namespace MedicationApi.Test
         }
 
         [Fact]
-        public async Task MedicationController_Get_ReturnsRecords()
+        public async Task MedicationController_GetAll_ReturnsRecords()
         {
             // Arrange
             var medList = new List<Medication>
@@ -58,6 +58,57 @@ namespace MedicationApi.Test
             Assert.Equal(medList[0].Name, records[0].Name);
             Assert.Equal(medList[1].Id, records[1].Id);
             Assert.Equal(medList[1].Name, records[1].Name);
+        }
+
+        [Fact]
+        public async Task MedicationController_GetById_WhenThrowsArgumentException_ReturnsBadRequest()
+        {
+            // Arrange
+            var medicationId = 1;
+            var excMsg = "The Medication does not exist";
+            _serviceMock.Setup(s => s.GetById(medicationId))
+                .ThrowsAsync(new ArgumentException(excMsg));
+
+            // Act
+            var response = await _controller.Get(medicationId);
+
+            // Assert
+            var result = Assert.IsType<BadRequestObjectResult>(response);
+            Assert.Equal(excMsg, result.Value);
+        }
+
+        [Fact]
+        public async Task MedicationController_GetById_WhenThrowsGenericException_ReturnsInternalServerError()
+        {
+            // Arrange
+            var medicationId = 1;
+            _serviceMock.Setup(s => s.GetById(medicationId)).ThrowsAsync(new Exception());
+
+            // Act
+            var response = await _controller.Get(medicationId);
+
+            // Assert
+            var result = Assert.IsType<StatusCodeResult>(response);
+            Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task MedicationController_GetById_WhenRecordExists_ReturnsMedicationData()
+        {
+            // Arrange
+            var medicationId = 1;
+            var medication = new Medication { Id = 1, Name = "MedicationTest", Brand = "TestBrand" };
+            _serviceMock.Setup(s => s.GetById(medicationId)).ReturnsAsync(medication);
+
+            // Act
+            var response = await _controller.Get(medicationId);
+
+            // Assert
+            var result = Assert.IsType<OkObjectResult>(response);
+            var medicationDto = Assert.IsType<MedicationDto>(result.Value);
+            Assert.Equal(medicationId, medicationDto.Id);
+            Assert.Equal(medication.Name, medicationDto.Name);
+            Assert.Equal(medication.Brand, medicationDto.Brand);
         }
 
         [Fact]
