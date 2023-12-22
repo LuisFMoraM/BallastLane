@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic.Test", "BusinessLogic.Test\BusinessLogic.Test.csproj", "{6F3F9CDD-9F27-4491-821E-9ACBA91DD302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicationApi.Test", "MedicationApi.Test\MedicationApi.Test.csproj", "{10360E45-7FCB-4BDE-A902-F8BB66349721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicationApi.Test", "MedicationApi.Test\MedicationApi.Test.csproj", "{10360E45-7FCB-4BDE-A902-F8BB66349721}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Authorization", "Authorization\Authorization.csproj", "{87888E17-F535-4F24-9BD3-C64FA946F64F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserApi", "UserApi\UserApi.csproj", "{E6B55618-1AFC-46C0-A6C0-E7A0B9B764CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserApi.Test", "UserApi.Test\UserApi.Test.csproj", "{F7F24785-075F-4AFF-AA4F-A64C98EFC36F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,18 @@ Global
 		{10360E45-7FCB-4BDE-A902-F8BB66349721}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10360E45-7FCB-4BDE-A902-F8BB66349721}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10360E45-7FCB-4BDE-A902-F8BB66349721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87888E17-F535-4F24-9BD3-C64FA946F64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87888E17-F535-4F24-9BD3-C64FA946F64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87888E17-F535-4F24-9BD3-C64FA946F64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87888E17-F535-4F24-9BD3-C64FA946F64F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6B55618-1AFC-46C0-A6C0-E7A0B9B764CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6B55618-1AFC-46C0-A6C0-E7A0B9B764CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6B55618-1AFC-46C0-A6C0-E7A0B9B764CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6B55618-1AFC-46C0-A6C0-E7A0B9B764CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F24785-075F-4AFF-AA4F-A64C98EFC36F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F24785-075F-4AFF-AA4F-A64C98EFC36F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F24785-075F-4AFF-AA4F-A64C98EFC36F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F24785-075F-4AFF-AA4F-A64C98EFC36F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

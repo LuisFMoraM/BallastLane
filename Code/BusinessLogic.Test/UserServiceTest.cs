@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLogic.Models;
 using DataAccess.Repositories.Interfaces;
-using MedicationApi.MapperProfiles;
 using Moq;
+using UserApi.MapperProfiles;
 
 namespace BusinessLogic.Test
 {
@@ -103,6 +103,7 @@ namespace BusinessLogic.Test
             Assert.Equal(loggedUser.Id, dbRecord.Id);
             Assert.Equal(loggedUser.Name, dbRecord.Name);
             Assert.Equal(loggedUser.Email, dbRecord.Email);
+            Assert.Empty(loggedUser.Password);
         }
     }
 }

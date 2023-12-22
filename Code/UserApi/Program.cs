@@ -7,9 +7,6 @@ using DataAccess.Repositories.Interfaces;
 using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,23 +21,7 @@ builder.Services.AddLinqToDBContext<AppDataConnection>((provider, options) => op
                 .UseSqlServer(builder.Configuration.GetConnectionString("Default"))
                 .UseDefaultLogging(provider));
 
-var securityKey = AuthorizationConstants.SecurityKey;
-var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = AuthorizationConstants.SecurityTokenIssuer,
-            ValidAudience = AuthorizationConstants.SecurityTokenAudience,
-            IssuerSigningKey = symmetricSecurityKey
-        };
-    });
-
+builder.Services.AddSingleton<IAuthorizationConfig, AuthorizationConfig>();
 RegisterRepositoryDependencies(builder.Services);
 RegisterServiceDependencies(builder.Services);
 
@@ -66,7 +47,7 @@ app.Run();
 void RegisterRepositoryDependencies(IServiceCollection services)
 {
     services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-    services.AddScoped<IMedicationRepository, MedicationRepository>();
+    services.AddScoped<IUserRepository, UserRepository>();
 }
 
 /// <summary>
@@ -75,5 +56,5 @@ void RegisterRepositoryDependencies(IServiceCollection services)
 /// <param name="services">Container instance</param>
 void RegisterServiceDependencies(IServiceCollection services)
 {
-    services.AddScoped<IMedicationService, MedicationService>();
+    services.AddScoped<IUserService, UserService>();
 }

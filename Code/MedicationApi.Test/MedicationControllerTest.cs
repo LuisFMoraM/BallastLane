@@ -61,7 +61,7 @@ namespace MedicationApi.Test
         }
 
         [Fact]
-        public async Task MedicationController_Add_WhenThrowsArgumentException_ReturnsBadRequest()
+        public async Task MedicationController_Add_WhenThrowsInvalidOperationException_ReturnsBadRequest()
         {
             // Arrange
             var medication = new MedicationDto { Id = 1, Name = "FaceAcne", Brand = "Free", Price = 10 };
@@ -110,7 +110,7 @@ namespace MedicationApi.Test
         }
 
         [Fact]
-        public async Task MedicationController_Update_WhenThrowsArgumentException_ReturnsBadRequest()
+        public async Task MedicationController_Update_WhenThrowsInvalidOperationException_ReturnsBadRequest()
         {
             // Arrange
             var medication = new MedicationDto { Id = 1, Name = "FaceAcne", Brand = "Free", Price = 10 };
@@ -159,7 +159,7 @@ namespace MedicationApi.Test
         }
 
         [Fact]
-        public async Task MedicationController_Delete_WhenThrowsArgumentException_ReturnsBadRequest()
+        public async Task MedicationController_Delete_WhenThrowsInvalidOperationException_ReturnsBadRequest()
         {
             // Arrange
             var medicationId = 1;
