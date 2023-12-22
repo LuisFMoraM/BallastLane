@@ -1,3 +1,4 @@
+using Authorization;
 using BusinessLogic;
 using BusinessLogic.Interfaces;
 using DataAccess;
@@ -6,6 +7,9 @@ using DataAccess.Repositories.Interfaces;
 using LinqToDB;
 using LinqToDB.AspNet;
 using LinqToDB.AspNet.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,23 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddLinqToDBContext<AppDataConnection>((provider, options) => options
                 .UseSqlServer(builder.Configuration.GetConnectionString("Default"))
                 .UseDefaultLogging(provider));
+
+var securityKey = AuthorizationConstants.SecurityKey;
+var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = AuthorizationConstants.SecurityTokenIssuer,
+            ValidAudience = AuthorizationConstants.SecurityTokenAudience,
+            IssuerSigningKey = symmetricSecurityKey
+        };
+    });
 
 RegisterRepositoryDependencies(builder.Services);
 RegisterServiceDependencies(builder.Services);
@@ -37,7 +58,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
 
 /// <summary>
 /// Add repository dependencies to the Container
